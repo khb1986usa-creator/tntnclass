@@ -1,272 +1,409 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>디지털 튼튼교실</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>디지털 튼튼교실</title>
 
-<style>
+  <style>
+    :root {
+      --bg-1: #f3f8ff;
+      --bg-2: #edf9f1;
+      --card-bg: rgba(255, 255, 255, 0.88);
+      --text: #1f2937;
+      --subtext: #6b7280;
+      --line: #d9dee8;
+      --primary: #2563eb;
+      --secondary: #22c55e;
+      --error: #ef4444;
+      --success: #16a34a;
+      --shadow: 0 18px 45px rgba(31, 41, 55, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
 
-body{
-margin:0;
-font-family: 'Pretendard','Noto Sans KR',sans-serif;
-background:linear-gradient(135deg,#f4f8ff,#eefaf3);
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-.container{
-width:100%;
-max-width:520px;
-background:white;
-border-radius:24px;
-box-shadow:0 20px 50px rgba(0,0,0,0.1);
-padding:28px;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.10), transparent 30%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    }
 
-.badge{
-display:inline-block;
-background:#e8f0ff;
-color:#2563eb;
-padding:6px 14px;
-border-radius:20px;
-font-weight:700;
-font-size:13px;
-margin-bottom:12px;
-}
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
 
-h1{
-margin:0;
-font-size:28px;
-font-weight:800;
-}
+    .app {
+      width: 100%;
+      max-width: 620px;
+    }
 
-.subtitle{
-color:#6b7280;
-font-size:14px;
-margin-top:8px;
-line-height:1.6;
-}
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 28px 28px 24px;
+    }
 
-.form{
-margin-top:22px;
-display:grid;
-gap:16px;
-}
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #e9efff;
+      color: #2f5cff;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
 
-label{
-font-weight:700;
-font-size:14px;
-}
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
 
-input,select{
-width:100%;
-padding:14px;
-border-radius:14px;
-border:1px solid #d1d5db;
-font-size:16px;
-}
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--subtext);
+      font-size: 15px;
+      line-height: 1.65;
+    }
 
-input:focus,select:focus{
-outline:none;
-border-color:#2563eb;
-box-shadow:0 0 0 3px rgba(37,99,235,0.15);
-}
+    .form {
+      margin-top: 28px;
+      display: grid;
+      gap: 18px;
+    }
 
-button{
-margin-top:6px;
-padding:16px;
-border:none;
-border-radius:16px;
-font-size:16px;
-font-weight:800;
-color:white;
-cursor:pointer;
-background:linear-gradient(135deg,#2563eb,#22c55e);
-}
+    .field {
+      display: grid;
+      gap: 10px;
+      width: 100%;
+    }
 
-button:disabled{
-opacity:0.6;
-cursor:not-allowed;
-}
+    .label {
+      font-size: 15px;
+      font-weight: 800;
+      color: #111827;
+    }
 
-.status{
-margin-top:12px;
-font-size:14px;
-font-weight:700;
-}
+    .input,
+    .select {
+      width: 100%;
+      height: 56px;
+      border: 1.5px solid var(--line);
+      border-radius: 18px;
+      background: #ffffff;
+      padding: 0 18px;
+      font-size: 16px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
 
-.error{color:#ef4444;}
-.success{color:#22c55e;}
+    .input::placeholder {
+      color: #9aa3b2;
+    }
 
-.result{
-margin-top:20px;
-padding:20px;
-background:#f0f9ff;
-border-radius:18px;
-display:none;
-}
+    .input:focus,
+    .select:focus {
+      border-color: rgba(37, 99, 235, 0.55);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+      transform: translateY(-1px);
+    }
 
-.result.show{
-display:block;
-}
+    .select-wrap {
+      position: relative;
+      width: 100%;
+    }
 
-.quote{
-font-size:20px;
-font-weight:800;
-line-height:1.6;
-}
+    .select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding-right: 52px;
+      cursor: pointer;
+    }
 
-.notice{
-font-size:13px;
-color:#6b7280;
-margin-top:10px;
-}
+    .select-wrap::after {
+      content: "⌄";
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-52%);
+      font-size: 22px;
+      color: #374151;
+      pointer-events: none;
+      line-height: 1;
+    }
 
-</style>
+    .helper {
+      margin-top: -2px;
+      font-size: 13px;
+      color: #8a94a6;
+      line-height: 1.5;
+    }
+
+    .button {
+      width: 100%;
+      height: 58px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(90deg, #2f67e8 0%, #3183eb 42%, #2dc770 100%);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 14px 28px rgba(47, 103, 232, 0.22);
+      transition: transform 0.16s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      margin-top: 4px;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 30px rgba(47, 103, 232, 0.26);
+    }
+
+    .button:disabled {
+      opacity: 0.72;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      min-height: 22px;
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .status.error {
+      color: var(--error);
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(34, 197, 94, 0.08));
+      border: 1px solid rgba(37, 99, 235, 0.08);
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result-title {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .quote {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.6;
+      color: #0f172a;
+      word-break: keep-all;
+    }
+
+    .notice {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--subtext);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+        align-items: flex-start;
+      }
+
+      .card {
+        padding: 22px 18px 20px;
+        border-radius: 24px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+      }
+
+      .input,
+      .select,
+      .button {
+        height: 54px;
+        font-size: 16px;
+      }
+
+      .quote {
+        font-size: 18px;
+      }
+    }
+  </style>
 </head>
-
-
 <body>
+  <div class="app">
+    <div class="card">
+      <div class="badge">💪 디지털 튼튼교실</div>
 
-<div class="container">
+      <h1>오늘의 운동 기록</h1>
+      <p class="subtitle">
+        이름과 오늘의 운동을 기록해 보세요.<br />
+        작은 실천이 쌓이면 건강도 레벨업됩니다.
+      </p>
 
-<div class="badge">💪 디지털 튼튼교실</div>
+      <form class="form" id="form">
+        <div class="field">
+          <label class="label" for="name">이름</label>
+          <input
+            class="input"
+            id="name"
+            type="text"
+            placeholder="이름 입력"
+            maxlength="20"
+          />
+        </div>
 
-<h1>오늘의 운동 기록</h1>
+        <div class="field">
+          <label class="label" for="exercise">운동 이름</label>
+          <input
+            class="input"
+            id="exercise"
+            type="text"
+            placeholder="예: 줄넘기, 걷기"
+            maxlength="50"
+          />
+        </div>
 
-<p class="subtitle">
-이름과 오늘의 운동을 기록해 보세요.<br>
-작은 실천이 쌓이면 건강도 레벨업됩니다.
-</p>
+        <div class="field">
+          <label class="label" for="duration">하루 운동 시간</label>
+          <div class="select-wrap">
+            <select class="select" id="duration"></select>
+          </div>
+          <div class="helper">1분부터 60분까지 선택할 수 있어요.</div>
+        </div>
 
-<form class="form" id="form">
+        <button class="button" id="submitBtn" type="submit">운동 기록하기</button>
+      </form>
 
-<div>
-<label>이름</label>
-<input id="name" placeholder="이름 입력">
-</div>
+      <div id="status" class="status"></div>
 
-<div>
-<label>운동 이름</label>
-<input id="exercise" placeholder="예: 줄넘기, 걷기">
-</div>
+      <div id="resultBox" class="result">
+        <div class="result-title">🔥 오늘의 한마디</div>
+        <p class="quote" id="message"></p>
+        <div class="notice">응답한 내용은 서버에 저장됩니다.</div>
+      </div>
+    </div>
+  </div>
 
-<div>
-<label>하루 운동 시간</label>
-<select id="duration"></select>
-</div>
+  <script>
+    const WEB_APP_URL =
+      "https://script.google.com/macros/s/AKfycbyNRAZkBSgBAUbUMhKs1tsrDrBW2Dia2VOsmnDBP0X2ELbxrkmPVhD4YRruVjrFIS1pgA/exec";
 
-<button id="submitBtn">운동 기록하기</button>
+    const duration = document.getElementById("duration");
+    const form = document.getElementById("form");
+    const status = document.getElementById("status");
+    const resultBox = document.getElementById("resultBox");
+    const message = document.getElementById("message");
+    const btn = document.getElementById("submitBtn");
 
-</form>
+    for (let i = 1; i <= 60; i++) {
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = i + "분";
+      duration.appendChild(opt);
+    }
 
-<div id="status" class="status"></div>
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-<div id="resultBox" class="result">
+      const name = document.getElementById("name").value.trim();
+      const exercise = document.getElementById("exercise").value.trim();
+      const durationValue = duration.value;
 
-<div class="quote" id="message"></div>
+      if (!name) {
+        status.textContent = "이름을 입력하세요.";
+        status.className = "status error";
+        return;
+      }
 
-<div class="notice">
-응답한 내용은 서버에 저장됩니다.
-</div>
+      if (!exercise) {
+        status.textContent = "운동 이름을 입력하세요.";
+        status.className = "status error";
+        return;
+      }
 
-</div>
+      btn.disabled = true;
+      btn.textContent = "저장 중...";
+      resultBox.classList.remove("show");
 
-</div>
+      try {
+        const res = await fetch(WEB_APP_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({
+            name: name,
+            exercise: exercise,
+            duration: Number(durationValue)
+          })
+        });
 
+        const data = await res.json();
 
-<script>
+        if (data.success) {
+          status.textContent = "운동 기록 저장 완료!";
+          status.className = "status success";
+          message.textContent = `"${data.message}"`;
+          resultBox.classList.add("show");
+          form.reset();
+          duration.value = "1";
+        } else {
+          status.textContent = data.message || "저장에 실패했습니다.";
+          status.className = "status error";
+        }
+      } catch (err) {
+        status.textContent = "서버 연결 중 오류가 발생했습니다.";
+        status.className = "status error";
+      }
 
-const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbyNRAZkBSgBAUbUMhKs1tsrDrBW2Dia2VOsmnDBP0X2ELbxrkmPVhD4YRruVjrFIS1pgA/exec";
+      btn.disabled = false;
+      btn.textContent = "운동 기록하기";
+    });
 
-const duration=document.getElementById("duration");
-
-for(let i=1;i<=60;i++){
-let opt=document.createElement("option");
-opt.value=i;
-opt.textContent=i+"분";
-duration.appendChild(opt);
-}
-
-const form=document.getElementById("form");
-const status=document.getElementById("status");
-const resultBox=document.getElementById("resultBox");
-const message=document.getElementById("message");
-const btn=document.getElementById("submitBtn");
-
-form.addEventListener("submit",async e=>{
-e.preventDefault();
-
-const name=document.getElementById("name").value.trim();
-const exercise=document.getElementById("exercise").value.trim();
-const durationValue=duration.value;
-
-if(!name){
-status.textContent="이름을 입력하세요";
-status.className="status error";
-return;
-}
-
-if(!exercise){
-status.textContent="운동 이름을 입력하세요";
-status.className="status error";
-return;
-}
-
-btn.disabled=true;
-btn.textContent="저장 중...";
-
-try{
-
-const res=await fetch(WEB_APP_URL,{
-method:"POST",
-headers:{
-"Content-Type":"text/plain"
-},
-body:JSON.stringify({
-name:name,
-exercise:exercise,
-duration:Number(durationValue)
-})
-});
-
-const data=await res.json();
-
-if(data.success){
-
-status.textContent="운동 기록 저장 완료!";
-status.className="status success";
-
-message.textContent="\""+data.message+"\"";
-resultBox.classList.add("show");
-
-form.reset();
-
-}else{
-
-status.textContent=data.message;
-status.className="status error";
-
-}
-
-}catch(err){
-
-status.textContent="서버 연결 중 오류가 발생했습니다.";
-status.className="status error";
-
-}
-
-btn.disabled=false;
-btn.textContent="운동 기록하기";
-
-});
-
-</script>
-
+    duration.value = "1";
+  </script>
 </body>
 </html>

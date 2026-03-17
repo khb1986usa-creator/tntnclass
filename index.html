@@ -8,77 +8,55 @@
     :root {
       --bg-1: #f4f8ff;
       --bg-2: #eefaf3;
-      --card: rgba(255, 255, 255, 0.82);
+      --card: rgba(255, 255, 255, 0.86);
       --text: #1f2937;
       --subtext: #6b7280;
       --primary: #2563eb;
       --primary-2: #22c55e;
       --danger: #ef4444;
-      --border: rgba(255, 255, 255, 0.65);
       --shadow: 0 20px 50px rgba(37, 99, 235, 0.12);
       --radius-xl: 28px;
       --radius-lg: 18px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 30%),
         radial-gradient(circle at top right, rgba(34, 197, 94, 0.13), transparent 32%),
         linear-gradient(135deg, var(--bg-1), var(--bg-2));
-      min-height: 100vh;
     }
 
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .app-shell {
+    .app {
       width: 100%;
       max-width: 540px;
     }
 
     .card {
       background: var(--card);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid var(--border);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
       padding: 28px 22px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.3), transparent 42%);
-      pointer-events: none;
+      backdrop-filter: blur(16px);
     }
 
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: inline-block;
       padding: 8px 14px;
       border-radius: 999px;
       background: rgba(37, 99, 235, 0.1);
       color: var(--primary);
-      font-size: 13px;
       font-weight: 700;
+      font-size: 13px;
       margin-bottom: 14px;
     }
 
@@ -86,12 +64,11 @@
       margin: 0;
       font-size: 30px;
       font-weight: 800;
-      letter-spacing: -0.02em;
       line-height: 1.2;
     }
 
     .subtitle {
-      margin: 8px 0 0;
+      margin: 10px 0 0;
       color: var(--subtext);
       font-size: 15px;
       line-height: 1.6;
@@ -109,66 +86,45 @@
     }
 
     label {
-      font-size: 14px;
       font-weight: 700;
-      color: #111827;
+      font-size: 14px;
     }
 
-    .input,
-    .select {
+    .input, .select {
       width: 100%;
-      border: 1px solid rgba(209, 213, 219, 0.9);
-      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #d1d5db;
       border-radius: 16px;
       padding: 15px 16px;
       font-size: 16px;
-      color: var(--text);
+      background: white;
       outline: none;
-      transition: all 0.2s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
     }
 
-    .input:focus,
-    .select:focus {
+    .input:focus, .select:focus {
       border-color: rgba(37, 99, 235, 0.5);
       box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-      transform: translateY(-1px);
     }
 
     .helper {
       font-size: 12px;
       color: var(--subtext);
-      margin-top: -2px;
     }
 
     .button {
-      margin-top: 6px;
       border: none;
       border-radius: 18px;
       padding: 16px 18px;
-      width: 100%;
       font-size: 16px;
       font-weight: 800;
       color: white;
       cursor: pointer;
       background: linear-gradient(135deg, var(--primary), #3b82f6 55%, var(--primary-2));
       box-shadow: 0 12px 25px rgba(37, 99, 235, 0.28);
-      transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 28px rgba(37, 99, 235, 0.32);
-    }
-
-    .button:active {
-      transform: translateY(0);
     }
 
     .button:disabled {
       opacity: 0.7;
       cursor: not-allowed;
-      transform: none;
     }
 
     .status {
@@ -178,13 +134,8 @@
       margin-top: 10px;
     }
 
-    .status.error {
-      color: var(--danger);
-    }
-
-    .status.success {
-      color: var(--primary-2);
-    }
+    .status.error { color: var(--danger); }
+    .status.success { color: var(--primary-2); }
 
     .result {
       display: none;
@@ -192,31 +143,21 @@
       padding: 20px 18px;
       border-radius: 22px;
       background: linear-gradient(135deg, rgba(37, 99, 235, 0.09), rgba(34, 197, 94, 0.09));
-      border: 1px solid rgba(37, 99, 235, 0.1);
     }
 
-    .result.show {
-      display: block;
-      animation: fadeUp 0.35s ease;
-    }
+    .result.show { display: block; }
 
     .result-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      margin: 0 0 12px;
       font-size: 18px;
       font-weight: 800;
-      margin: 0 0 12px;
     }
 
     .quote {
       margin: 0;
-      padding: 0 0 0 2px;
       font-size: 20px;
       font-weight: 800;
       line-height: 1.6;
-      letter-spacing: -0.01em;
-      color: #0f172a;
       word-break: keep-all;
     }
 
@@ -227,96 +168,38 @@
       line-height: 1.6;
     }
 
-    .footer-note {
-      margin-top: 16px;
-      font-size: 12px;
-      color: #94a3b8;
-      text-align: center;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     @media (max-width: 480px) {
-      body {
-        padding: 14px;
-        align-items: flex-start;
-      }
-
-      .card {
-        padding: 22px 16px;
-        border-radius: 24px;
-      }
-
-      h1 {
-        font-size: 26px;
-      }
-
-      .subtitle {
-        font-size: 14px;
-      }
-
-      .input,
-      .select,
-      .button {
-        font-size: 16px;
-      }
-
-      .quote {
-        font-size: 18px;
-      }
+      body { padding: 14px; align-items: flex-start; }
+      .card { padding: 22px 16px; }
+      h1 { font-size: 26px; }
+      .quote { font-size: 18px; }
     }
   </style>
 </head>
 <body>
-  <div class="app-shell">
+  <div class="app">
     <div class="card">
       <div class="badge">💪 디지털 튼튼교실</div>
       <h1>오늘의 운동 기록</h1>
       <p class="subtitle">
-        이름과 오늘의 운동을 기록해 보세요.<br />
-        작은 움직임도 차곡차곡 쌓이면 건강의 성벽이 됩니다.
+        이름과 오늘의 운동을 기록해 보세요.<br>
+        작은 실천이 쌓이면 건강도 레벨업됩니다.
       </p>
 
       <form class="form" id="exerciseForm">
         <div class="field">
           <label for="name">이름</label>
-          <input
-            class="input"
-            type="text"
-            id="name"
-            name="name"
-            placeholder="이름을 입력하세요"
-            maxlength="20"
-            autocomplete="name"
-            required
-          />
+          <input class="input" type="text" id="name" maxlength="20" placeholder="이름을 입력하세요" required>
         </div>
 
         <div class="field">
           <label for="exercise">운동 이름</label>
-          <input
-            class="input"
-            type="text"
-            id="exercise"
-            name="exercise"
-            placeholder="예: 줄넘기, 걷기, 플랭크"
-            maxlength="50"
-            required
-          />
+          <input class="input" type="text" id="exercise" maxlength="50" placeholder="예: 줄넘기, 걷기, 플랭크" required>
         </div>
 
         <div class="field">
           <label for="duration">하루 운동 시간</label>
-          <select class="select" id="duration" name="duration" required>
+          <select class="select" id="duration" required>
             <option value="">운동 시간을 선택하세요</option>
           </select>
           <div class="helper">1분부터 60분까지 선택할 수 있어요.</div>
@@ -332,12 +215,12 @@
         <p id="messageText" class="quote"></p>
         <p class="notice">응답한 내용은 서버에 저장됩니다.</p>
       </section>
-
-      <div class="footer-note">오늘의 한 걸음, 내일의 튼튼함 🌱</div>
     </div>
   </div>
 
   <script>
+    const WEB_APP_URL = 'YOUR_APPS_SCRIPT_WEBAPP_URL';
+
     const form = document.getElementById('exerciseForm');
     const durationSelect = document.getElementById('duration');
     const submitButton = document.getElementById('submitButton');
@@ -345,110 +228,86 @@
     const resultBox = document.getElementById('resultBox');
     const messageText = document.getElementById('messageText');
 
-    /**
-     * 1~60분 드롭다운 생성
-     */
-    function buildDurationOptions() {
-      for (let i = 1; i <= 60; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = `${i}분`;
-        durationSelect.appendChild(option);
-      }
+    for (let i = 1; i <= 60; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = `${i}분`;
+      durationSelect.appendChild(option);
     }
 
-    /**
-     * 상태 메시지 출력
-     * @param {string} text
-     * @param {'success'|'error'|''} type
-     */
     function setStatus(text, type = '') {
       statusEl.textContent = text;
       statusEl.className = `status ${type}`.trim();
     }
 
-    /**
-     * 결과 출력
-     * @param {string} message
-     */
     function showResult(message) {
       messageText.textContent = `"${message}"`;
       resultBox.classList.add('show');
     }
 
-    /**
-     * 폼 초기화
-     */
     function resetFormFields() {
       form.reset();
       durationSelect.value = '';
     }
 
-    /**
-     * 제출 처리
-     */
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
       event.preventDefault();
 
       const name = document.getElementById('name').value.trim();
       const exercise = document.getElementById('exercise').value.trim();
-      const duration = document.getElementById('duration').value;
+      const duration = Number(document.getElementById('duration').value);
 
       if (!name) {
         setStatus('이름을 입력해 주세요.', 'error');
-        document.getElementById('name').focus();
         return;
       }
 
       if (!exercise) {
         setStatus('운동 이름을 입력해 주세요.', 'error');
-        document.getElementById('exercise').focus();
         return;
       }
 
-      if (!duration) {
+      if (!duration || duration < 1 || duration > 60) {
         setStatus('운동 시간을 선택해 주세요.', 'error');
-        document.getElementById('duration').focus();
         return;
       }
 
-      setStatus('기록을 저장하고 있어요...', 'success');
-      submitButton.disabled = true;
-      submitButton.textContent = '저장 중...';
-      resultBox.classList.remove('show');
+      try {
+        submitButton.disabled = true;
+        submitButton.textContent = '저장 중...';
+        resultBox.classList.remove('show');
+        setStatus('기록을 저장하고 있어요...', 'success');
 
-      google.script.run
-        .withSuccessHandler(function(response) {
-          submitButton.disabled = false;
-          submitButton.textContent = '운동 기록하기';
-
-          if (response && response.success) {
-            setStatus('운동 기록이 저장되었어요!', 'success');
-            showResult(response.message);
-            resetFormFields();
-          } else {
-            setStatus(
-              response && response.message ? response.message : '저장에 실패했습니다.',
-              'error'
-            );
-          }
-        })
-        .withFailureHandler(function(error) {
-          submitButton.disabled = false;
-          submitButton.textContent = '운동 기록하기';
-          setStatus(
-            error && error.message ? error.message : '서버 오류가 발생했습니다.',
-            'error'
-          );
-        })
-        .saveExerciseRecord({
-          name: name,
-          exercise: exercise,
-          duration: Number(duration)
+        const response = await fetch(WEB_APP_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify({
+            name,
+            exercise,
+            duration
+          })
         });
+
+        const result = await response.json();
+
+        if (result.success) {
+          setStatus('운동 기록이 저장되었어요!', 'success');
+          showResult(result.message);
+          resetFormFields();
+        } else {
+          setStatus(result.message || '저장에 실패했습니다.', 'error');
+        }
+      } catch (error) {
+        setStatus('서버 연결 중 오류가 발생했습니다.', 'error');
+        console.error(error);
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = '운동 기록하기';
+      }
     }
 
-    buildDurationOptions();
     form.addEventListener('submit', handleSubmit);
   </script>
 </body>
